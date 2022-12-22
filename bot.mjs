@@ -15,7 +15,7 @@ const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN);
 
 let tasks = [];
 
-bot.on(["/schedule"], (msg) => {
+bot.on(["/start"], (msg) => {
   return bot.inlineKeyboard([
     [bot.inlineButton("schedule", { callback: "/schedule" })],
     [bot.inlineButton("stop", { callback: "/stop" })],
