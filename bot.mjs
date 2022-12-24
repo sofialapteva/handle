@@ -19,7 +19,7 @@ bot.on("/start", (msg) => {
   let replyMarkup = bot.inlineKeyboard([
     [
       bot.inlineButton("schedule", { callback: "schedule" }),
-      bot.inlineButton("stop", { inline: "stop" }),
+      bot.inlineButton("stop", { callback: "stop" }),
     ],
   ]);
 
@@ -43,7 +43,7 @@ bot.on("/schedule", (msg) => {
 });
 
 // Inline button callback
-bot.on("callbackQuery", (msg) => {
+bot.on(["/schedule", "/stop"], (msg) => {
   bot.sendMessage(msg.from.id, msg.data);
 });
 
