@@ -3,12 +3,16 @@
   "version": "1.0.1",
   "scripts": {
     "dev": "vc dev",
-    "tunnel": "lt --port 3000 & vc dev"
+    "tunnel": "lt --port 3000 & vc dev",
+    "test": "nodemon bot.mjs"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
     "node-cron": "^3.0.2",
     "telebot": "latest",
     "telebot-vercel": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

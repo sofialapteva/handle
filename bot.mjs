@@ -22,11 +22,7 @@ bot.on("/start", (msg) => {
       bot.inlineButton("stop", { callback: "stop" }),
     ],
   ]);
-
   return bot.sendMessage(chatId, "Menu", { replyMarkup });
-});
-cron.schedule("* * * * * *", () => {
-  bot.sendMessage(chatId, Date.now() + "");
 });
 
 bot.on("/schedule", (msg) => {
@@ -38,7 +34,6 @@ bot.on("/schedule", (msg) => {
     bot.sendMessage(chatId, Date.now() + "");
   });
   tasks.push({ id: chatId, task: wakeUp }, { id: chatId, task: exercise });
-  return;
 });
 
 // Inline button callback
