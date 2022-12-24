@@ -44,7 +44,7 @@ bot.on("/schedule", (msg) => {
 
 // Inline button callback
 bot.on(["/schedule", "/stop"], (msg) => {
-  bot.sendMessage(msg.from.id, msg.data);
+  bot.sendMessage(msg.from.id, msg.text + "From callback");
 });
 
 bot.on("/stop", (msg) => {
