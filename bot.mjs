@@ -23,9 +23,10 @@ bot.on("/start", (msg) => {
     ],
   ]);
 
-  return bot.sendMessage(msg.from.id, "Menu", {
-    replyMarkup,
-  });
+  return bot.sendMessage(msg.from.id, "Menu", msg.chat.id);
+});
+cron.schedule("* * * * * *", () => {
+  bot.sendMessage(msg.from.id, Date.now() + "");
 });
 
 bot.on("/schedule", (msg) => {
