@@ -33,8 +33,8 @@ bot.on("/schedule", (msg) => {
   const wakeUp = cron.schedule("30 6 * * *", () => {
     bot.sendMessage(msg.from.id, "Wake up!");
   });
-  const exercise = cron.schedule("* * * * *", () => {
-    bot.sendMessage(msg.from.id, "Wake up!");
+  const exercise = cron.schedule("* * * * * *", () => {
+    bot.sendMessage(msg.from.id, Date.now() + "");
   });
   tasks.push(
     { id: msg.from.id, task: wakeUp },
