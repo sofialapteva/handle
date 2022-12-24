@@ -16,12 +16,14 @@ const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN);
 let tasks = [];
 
 bot.on(["/start"], (msg) => {
+  bot.sendMessage(msg.from.id, "I hear you!");
   return bot.inlineKeyboard([
     [bot.inlineButton("schedule", { callback: "/schedule" })],
     [bot.inlineButton("stop", { callback: "/stop" })],
   ]);
 });
 bot.on(["/schedule"], (msg) => {
+  bot.sendMessage(msg.from.id, "Wake up!");
   const wakeUp = cron.schedule("30 6 * * *", () => {
     bot.sendMessage(msg.from.id, "Wake up!");
   });
