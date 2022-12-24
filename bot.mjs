@@ -15,8 +15,10 @@ const chatId = process.env.CHAT_ID;
 
 let tasks = [];
 let replyMarkup = bot.keyboard([["/cron", "/stop"]], { resize: true });
-bot.sendMessage(chatId, "Started", { replyMarkup });
 
+bot.on("/start", (msg) => {
+  bot.sendMessage(chatId, "Started", { replyMarkup });
+});
 // Inline button callback
 bot.on("callbackQuery", (msg) => {
   bot.sendMessage(chatId, msg.data);
