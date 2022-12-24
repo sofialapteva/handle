@@ -15,14 +15,14 @@ const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN);
 
 let tasks = [];
 
-bot.on(["/start"], (msg) => {
+bot.on("/start", (msg) => {
   bot.sendMessage(msg.from.id, "I hear you!");
   return bot.inlineKeyboard([
     [bot.inlineButton("schedule", { callback: "/schedule" })],
     [bot.inlineButton("stop", { callback: "/stop" })],
   ]);
 });
-bot.on(["/schedule"], (msg) => {
+bot.on("/schedule", (msg) => {
   bot.sendMessage(msg.from.id, "Wake up!");
   const wakeUp = cron.schedule("30 6 * * *", () => {
     bot.sendMessage(msg.from.id, "Wake up!");
@@ -36,7 +36,7 @@ bot.on(["/schedule"], (msg) => {
   );
 });
 
-bot.on(["/stop"], (msg) => {
+bot.on("/stop", (msg) => {
   tasks.filter((task) => task.id == msg.from.id).forEach((task) => task.stop());
   tasks = tasks.filter((task) => task.id !== msg.from.id);
 });
