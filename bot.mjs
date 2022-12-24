@@ -14,7 +14,9 @@ const chatId = process.env.CHAT_ID || 0o0;
 // #  * * * * *
 
 let tasks = [];
-bot.sendMessage(chatId, "Started");
+cron.schedule("* * * * * *", () => {
+  bot.sendMessage(chatId, Date.now() + "");
+});
 
 bot.on("/start", (msg) => {
   let replyMarkup = bot.keyboard(
