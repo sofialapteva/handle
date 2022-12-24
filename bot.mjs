@@ -14,23 +14,18 @@ const chatId = process.env.CHAT_ID;
 // #  * * * * *
 
 let tasks = [];
-cron.schedule("* * * * * *", () => {
-  bot.sendMessage(chatId, Date.now() + "");
-});
-
-bot.on("/start", (msg) => {
-  let replyMarkup = bot.keyboard([["/cron", "/stop"]], { resize: true });
-  bot.sendMessage(chatId, "Menu", { replyMarkup });
-});
+let replyMarkup = bot.keyboard([["/cron", "/stop"]], { resize: true });
+bot.sendMessage(chatId, "Started", { replyMarkup });
 
 // Inline button callback
 bot.on("callbackQuery", (msg) => {
+  bot.sendMessage(chatId, msg.data);
   if (msg.data === "cron") {
     const wakeUp = cron.schedule("30 6 * * *", () => {
       bot.sendMessage(chatId, "Wake up!");
     });
     const exercise = cron.schedule("* * * * * *", () => {
-      bot.sendMessage(chatId, Date.now() + "");
+      bot.sendMessage(chatId, Date.now() + " each second");
     });
     tasks.push({ id: chatId, task: wakeUp }, { id: chatId, task: exercise });
     bot.sendMessage(chatId, "Starting cron work");
