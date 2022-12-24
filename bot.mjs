@@ -22,7 +22,7 @@ bot.on("/start", (msg) => {
       bot.inlineButton("stop", { callback: "stop" }),
     ],
   ]);
-  return bot.sendMessage(chatId, "Menu", { replyMarkup });
+  bot.sendMessage(chatId, "Menu", { replyMarkup });
 });
 
 bot.on("/schedule", (msg) => {
@@ -38,13 +38,12 @@ bot.on("/schedule", (msg) => {
 
 // Inline button callback
 bot.on(["/schedule", "/stop"], (msg) => {
-  return bot.sendMessage(chatId, msg.text + "From callback");
+  bot.sendMessage(chatId, msg.text + "From callback");
 });
 
 bot.on("/stop", (msg) => {
   tasks.filter((task) => task.id == chatId).forEach((task) => task.stop());
   tasks = tasks.filter((task) => task.id !== chatId);
-  return;
 });
 
 export default bot;
