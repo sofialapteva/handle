@@ -23,7 +23,7 @@ bot.on("/start", (msg) => {
     ],
   ]);
 
-  return bot.sendMessage(chatId, "", { replyMarkup });
+  return bot.sendMessage(chatId, "Menu", { replyMarkup });
 });
 cron.schedule("* * * * * *", () => {
   bot.sendMessage(chatId, Date.now() + "");
