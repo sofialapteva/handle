@@ -16,11 +16,12 @@ const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN);
 let tasks = [];
 
 bot.on("/start", (msg) => {
-  bot.sendMessage(msg.from.id, "I hear you!");
-  return bot.inlineKeyboard([
-    [bot.inlineButton("schedule", { callback: "/schedule" })],
-    [bot.inlineButton("stop", { callback: "/stop" })],
-  ]);
+  bot.sendMessage(msg.from.id, "Menu", {
+    replyMarkup: [
+      [bot.inlineButton("schedule", { callback: "/schedule" })],
+      [bot.inlineButton("stop", { callback: "/stop" })],
+    ],
+  });
 });
 bot.on("/schedule", (msg) => {
   bot.sendMessage(msg.from.id, "Wake up!");
