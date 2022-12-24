@@ -1,4 +1,4 @@
-import {start} from 'telebot-vercel'
-import bot from '../bot.mjs'
+import { start } from "./telebot.mjs";
+import bot from "../bot.mjs";
 
-export default start(bot)
+export default start(bot);

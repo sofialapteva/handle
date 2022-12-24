@@ -9,8 +9,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "node-cron": "^3.0.2",
-    "telebot": "latest",
-    "telebot-vercel": "latest"
+    "telebot": "latest"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

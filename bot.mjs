@@ -14,15 +14,41 @@ const chatId = process.env.CHAT_ID || 0o0;
 // #  * * * * *
 
 let tasks = [];
+bot.sendMessage(chatId, "Started");
 
 bot.on("/start", (msg) => {
-  let replyMarkup = bot.inlineKeyboard([
+  let replyMarkup = bot.keyboard(
     [
-      bot.inlineButton("schedule", { callback: "schedule" }),
-      bot.inlineButton("stop", { callback: "stop" }),
+      [
+        bot.button("contact", "Your contact"),
+        bot.button("location", "Your location"),
+      ],
+      ["/back", "/hide"],
     ],
-  ]);
+    { resize: true }
+  );
   bot.sendMessage(chatId, "Menu", { replyMarkup });
+
+  replyMarkup = bot.keyboard(
+    [
+      ["/buttons", "/inlineKeyboard"],
+      ["/start", "/hide"],
+    ],
+    { resize: true }
+  );
+
+  bot.sendMessage(chatId, "keyboard", { replyMarkup });
+  replyMarkup = bot.inlineKeyboard([
+    [
+      bot.inlineButton("callback", { callback: "this_is_data" }),
+      bot.inlineButton("inline", { inline: "some query" }),
+    ],
+    [bot.inlineButton("url", { url: "https://telegram.org" })],
+  ]);
+
+  return bot.sendMessage(msg.from.id, "Inline keyboard example.", {
+    replyMarkup,
+  });
 });
 
 bot.on("/schedule", (msg) => {
@@ -37,8 +63,9 @@ bot.on("/schedule", (msg) => {
 });
 
 // Inline button callback
-bot.on(["/schedule", "/stop"], (msg) => {
-  bot.sendMessage(chatId, msg.text + "From callback");
+bot.on("callbackQuery", (msg) => {
+  console.log(msg.data);
+  bot.sendMessage(chatId, msg.data);
 });
 
 bot.on("/stop", (msg) => {
