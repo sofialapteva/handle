@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import * as cron from "node-cron";
 dotenv.config();
 const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN);
-
+const chatId = process.env.CHAT_ID || 0o0;
 // #  ┌──────────── minute
 // #  │ ┌────────── hour
 // #  │ │ ┌──────── day of month
@@ -23,35 +23,32 @@ bot.on("/start", (msg) => {
     ],
   ]);
 
-  return bot.sendMessage(msg.from.id, msg.chat.id);
+  return bot.sendMessage(chatId, "", { replyMarkup });
 });
 cron.schedule("* * * * * *", () => {
-  bot.sendMessage(msg.from.id, Date.now() + "");
+  bot.sendMessage(chatId, Date.now() + "");
 });
 
 bot.on("/schedule", (msg) => {
-  bot.sendMessage(msg.from.id, "Wake up!");
+  bot.sendMessage(chatId, "Wake up!");
   const wakeUp = cron.schedule("30 6 * * *", () => {
-    bot.sendMessage(msg.from.id, "Wake up!");
+    bot.sendMessage(chatId, "Wake up!");
   });
   const exercise = cron.schedule("* * * * * *", () => {
-    bot.sendMessage(msg.from.id, Date.now() + "");
+    bot.sendMessage(chatId, Date.now() + "");
   });
-  tasks.push(
-    { id: msg.from.id, task: wakeUp },
-    { id: msg.from.id, task: exercise }
-  );
+  tasks.push({ id: chatId, task: wakeUp }, { id: chatId, task: exercise });
   return;
 });
 
 // Inline button callback
 bot.on(["/schedule", "/stop"], (msg) => {
-  return bot.sendMessage(msg.from.id, msg.text + "From callback");
+  return bot.sendMessage(chatId, msg.text + "From callback");
 });
 
 bot.on("/stop", (msg) => {
-  tasks.filter((task) => task.id == msg.from.id).forEach((task) => task.stop());
-  tasks = tasks.filter((task) => task.id !== msg.from.id);
+  tasks.filter((task) => task.id == chatId).forEach((task) => task.stop());
+  tasks = tasks.filter((task) => task.id !== chatId);
   return;
 });
 
