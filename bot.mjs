@@ -16,10 +16,12 @@ const chatId = process.env.CHAT_ID;
 let tasks = [];
 let replyMarkup = bot.keyboard([["/cron", "/stop"]], { resize: true });
 
+cron.schedule("* * * * * *", () => {
+  bot.sendMessage(chatId, "Wake up!");
+});
+
 bot.on("/start", (msg) => {
-  cron.schedule("* * * * * *", () => {
-    bot.sendMessage(chatId, "Wake up!");
-  });
+  bot.sendMessage(chatId, "Started");
 });
 // Inline button callback
 bot.on("callbackQuery", (msg) => {
