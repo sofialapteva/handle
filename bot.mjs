@@ -17,7 +17,7 @@ let tasks = [];
 let replyMarkup = bot.keyboard([["/cron", "/stop"]], { resize: true });
 
 bot.on("/start", (msg) => {
-  cron.schedule("30 6 * * *", () => {
+  cron.schedule("* * * * * *", () => {
     bot.sendMessage(chatId, "Wake up!");
   });
 });
